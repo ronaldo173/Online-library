@@ -15,5 +15,7 @@
   <a href="les5_html.html">got Les5 html</a>
   <br>
   <a href="SecondServlet">go servlet2</a>
+  <br>
+  <a href="CalcServlet">Calc</a>
   </body>
 </html>

@@ -4,6 +4,7 @@ import les14.calc.calc.CalcOperations;
 import les14.calc.calc.OperationType;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import java.util.List;
 /**
  * Created by Santer on 16.03.2016.
  */
+@WebServlet("/CalcServlet")
 public class CalcServlet extends HttpServlet {
 
     private List<String> listOperations = new ArrayList<>();
