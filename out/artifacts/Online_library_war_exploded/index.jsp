@@ -17,5 +17,7 @@
   <a href="SecondServlet">go servlet2</a>
   <br>
   <a href="CalcServlet">Calc</a>
+  <br><br>
+  <a href="form.jsp">Go form</a>
   </body>
 </html>

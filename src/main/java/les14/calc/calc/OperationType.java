@@ -5,7 +5,7 @@ package les14.calc.calc;
  */
 public enum OperationType {
 
-    ADD("+"), SUBSTRACT("-"), MULTIPLY("*"), DIVIDE("/");
+    ADD("+"), SUBTRACT("-"), MULTIPLY("*"), DIVIDE("/");
 
     private String stringValue;
 
