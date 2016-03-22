@@ -20,9 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
-/**
- * @author Tim
- */
+
 @WebServlet("/CalcServlet")
 public class CalcServlet extends HttpServlet {
 
@@ -59,11 +57,8 @@ public class CalcServlet extends HttpServlet {
             }
 
             double one = Double.valueOf(request.getParameter("one"));
-            out.println(one);
             double two = Double.valueOf(request.getParameter("two"));
-            out.println(two);
             String operation = request.getParameter("operation");
-            out.println(operation);
 
             // определение или создание сессии
             HttpSession session = request.getSession(true);
@@ -72,6 +67,19 @@ public class CalcServlet extends HttpServlet {
 
 
             // получение типа операции
+            switch (operation) {
+                case "+":
+                    operation = "add";
+                    break;
+                case "-":
+                    operation = "SUBTRACT";
+                    break;
+                case "*":
+                    operation = "MULTIPLY";
+                    break;
+                case "/":
+                    operation = "divide";
+            }
             OperationType operType = OperationType.valueOf(operation.toUpperCase());
 
             // калькуляция
