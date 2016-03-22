@@ -1,0 +1,43 @@
+html, body{
+    background-color: lightskyblue;
+    margin-left: 20%;
+    margin-right: 15px;
+    padding: 0px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+form {
+    margin-top: 10px;
+
+}
+
+input {
+    border: 1px solid #666;
+    border-radius: 5px;
+    padding: 4px;
+    font-size: 16px;
+    background-color: aquamarine;
+}
+
+table {
+    border-style: none;
+    width: 50%;
+}
+
+tr:nth-child(even){
+    background: #FFFFFF;
+}
+
+tr:nth-child(odd){
+    background: #FFFFFF;
+}
+.go-button{
+    border: 1px solid #666;
+    border-radius: 5px;
+    padding: 4px;
+    font-size: 12px;
+    padding: 5px 10px;
+    position: absolute;
+
+    margin-bottom: 15px;
+    background: #cccccc;
+}
