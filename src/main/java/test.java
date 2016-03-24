@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -6,29 +7,19 @@ import java.util.*;
 public class test {
     public static void main(String[] args) {
 
-        List<Integer> list = new ArrayList<Integer>() {{
-            add(1);
-            add(2);
-        }};
+ List<Integer> integerList = new ArrayList<>();
+        Class<? extends List> k = integerList.getClass();
 
-        System.out.println(list);
-        String string = Arrays.toString(toArray(list));
-        System.out.println(string);
+        System.out.println(k.getFields() + " " + List.class);
+        System.out.println(int.class);
 
-        Integer[] integers = toArray(list);
-        System.out.println(integers);
-
+        int[] arr = (int[]) java.lang.reflect.Array.newInstance(int.class, 5);
+        arr[1] = 2;
+        System.out.println(Arrays.toString(arr));
 
     }
 
-    public static  <T> T[] toArray(Collection<T> c) {
-        T[] a = (T[]) new Object[(c.size())];
-        int i = 0;
-        for (T t : c) {
-            a[i++] = t;
-        }
-        return a;
-    }
+
 
 
 }
