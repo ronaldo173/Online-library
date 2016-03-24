@@ -15,9 +15,9 @@ import java.util.logging.Logger;
 public class BookList {
     private List<Book> bookList = new ArrayList<>();
 
-    private List<Book> getBooks() {
+    private List<Book> getBooks(String query) {
 
-        String query = "SELECT * from BOOK order by name";
+
         try (ResultSet resultSet = DbConnection.getResultSetByQuery(query)) {
 
             while (resultSet.next()) {
@@ -40,6 +40,15 @@ public class BookList {
     }
 
     public List<Book> getBookList() {
-        return !bookList.isEmpty() ? bookList : getBooks();
+        return !bookList.isEmpty() ? bookList : getBooks("SELECT * from BOOK order by name");
+    }
+
+    public List<Book> getBooksByGenre(long id){
+        return getBooks("select b.id,b.name,b.isbn,b.page_count,b.publish_year, p.name as publisher, a.fio as author, g.name as genre, b.image from book b "
+                + "inner join author a on b.author_id=a.id "
+                + "inner join genre g on b.genre_id=g.id "
+                + "inner join publisher p on b.publisher_id=p.id "
+                + "where genre_id=" + id + " order by b.name "
+                + "limit 0,5");
     }
 }
