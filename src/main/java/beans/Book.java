@@ -10,6 +10,7 @@ import java.util.Date;
  * Created by Developer on 24.03.2016.
  */
 public class Book implements Serializable {
+    private long id;
     private String name;
     private byte[] content;
     private int pageCount;
@@ -18,7 +19,15 @@ public class Book implements Serializable {
     private String author;
     private Date publishDate;
     private String publisher;
-    private Image image;
+    private byte[] image;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -84,11 +93,11 @@ public class Book implements Serializable {
         this.publisher = publisher;
     }
 
-    public Image getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(Image image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 

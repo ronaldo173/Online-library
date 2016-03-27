@@ -20,7 +20,7 @@ public class GenreList {
         try (ResultSet resultSet = DbConnection.getResultSetByQuery("select * from genre order by name")) {
 
             while (resultSet.next()) {
-                Genre genre = new Genre(resultSet.getString("name"));
+                Genre genre = new Genre(resultSet.getString("name"), resultSet.getLong("id"));
                 genreList.add(genre);
             }
         } catch (SQLException e) {
@@ -35,6 +35,13 @@ public class GenreList {
     }
 
     public static void main(String[] args) {
-        System.out.println(new GenreList().getGenreList());
+
+        List<Book> bookList = new BookList().getBookList();
+        System.out.println(bookList);
+        Book book = bookList.get(0);
+        System.out.println(book);
+
+
+
     }
 }

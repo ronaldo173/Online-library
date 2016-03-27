@@ -7,8 +7,9 @@ public class Genre {
     private String name;
     private long id;
 
-    public Genre(String name) {
+    public Genre(String name, long id) {
         this.name = name;
+        this.id = id;
     }
 
     public String getName() {
