@@ -46,6 +46,7 @@ body {
     height: 50px;
     text-align: center;
     margin:50px;
+    clear: both;
 }
 
 .content{

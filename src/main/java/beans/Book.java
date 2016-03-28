@@ -1,7 +1,5 @@
 package beans;
 
-import java.awt.*;
-import java.io.DataInput;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
@@ -17,7 +15,7 @@ public class Book implements Serializable {
     private String isbn;
     private String genre;
     private String author;
-    private Date publishDate;
+    private int publishYear;
     private String publisher;
     private byte[] image;
 
@@ -77,12 +75,12 @@ public class Book implements Serializable {
         this.author = author;
     }
 
-    public Date getPublishDate() {
-        return publishDate;
+    public int getPublishYear() {
+        return publishYear;
     }
 
-    public void setPublishDate(Date publishDate) {
-        this.publishDate = publishDate;
+    public void setPublishYear(int publishYear) {
+        this.publishYear = publishYear;
     }
 
     public String getPublisher() {
@@ -110,7 +108,7 @@ public class Book implements Serializable {
                 ", isbn='" + isbn + '\'' +
                 ", genre='" + genre + '\'' +
                 ", author='" + author + '\'' +
-                ", publishDate=" + publishDate +
+                ", publishYear=" + publishYear +
                 ", publisher='" + publisher + '\'' +
                 '}';
     }

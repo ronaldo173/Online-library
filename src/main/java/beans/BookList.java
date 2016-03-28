@@ -1,6 +1,7 @@
 package beans;
 
 import db.DbConnection;
+import enums.SearchType;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,11 +28,10 @@ public class BookList {
                 book.setGenre(resultSet.getString("genre_id"));
                 book.setIsbn(resultSet.getString("isbn"));
                 book.setPageCount(resultSet.getInt("page_count"));
-                book.setPublishDate(resultSet.getDate("publish_year"));
-//                book.setPublisher(resultSet.getString("publisher"));
+                book.setPublishYear(resultSet.getInt("publish_year"));
                 book.setAuthor(resultSet.getString("fio"));
 
-                book.setPublisher(resultSet.getString("publisher_id"));
+                book.setPublisher(resultSet.getString("publisher_name"));
                 book.setImage(resultSet.getBytes("image"));
 
                 bookList.add(book);
@@ -45,7 +45,10 @@ public class BookList {
     }
 
     public List<Book> getBookList() {
-        return !bookList.isEmpty() ? bookList : getBooks("select * from book inner join author on book.author_id=author.id  order by name;");
+        return !bookList.isEmpty() ? bookList : getBooks("select * from book inner join" +
+                " author on book.author_id=author.id inner join(select publisher.id, publisher.name as publisher_name from publisher) " +
+                "publisher on \n" +
+                "publisher_id = publisher.id order by book.name ;");
     }
 
     public List<Book> getBooksByGenre(long id) {
@@ -56,7 +59,36 @@ public class BookList {
 //                + "where genre_id=" + id + " order by b.name "
 //                + "limit 0,5");
 
-        return getBooks("select * from book inner join author on book.author_id=author.id where genre_id = " + id);
+        return getBooks("select * from book inner join author on book.author_id=author.id inner join(select publisher.id, publisher.name as publisher_name from publisher) publisher on \n" +
+                "publisher_id = publisher.id where genre_id=" + id + " order by book.name ");
 
+    }
+
+    //TODO
+    public List<Book> getBooksByLetter(String letter) {
+        String query = null;
+
+        return getBooks(query);
+    }
+
+    public List<Book> getBooksBySearch(String searchStr, SearchType type) {
+        String endQueryByType = null;
+
+
+        switch (type) {
+            case AUTHOR:
+                endQueryByType = "lower(fio)";
+                break;
+            case TITLE:
+                endQueryByType = "lower(name)";
+        }
+
+        String query = "select * from book inner join author on book.author_id=author.id inner join(select publisher.id, publisher.name as\n" +
+                " publisher_name from publisher) publisher on \n" +
+                "publisher_id = publisher.id where" + endQueryByType + " like '%' " + searchStr.toLowerCase() +
+                "'%' order by book.name ;";
+
+
+        return getBooks(query);
     }
 }
