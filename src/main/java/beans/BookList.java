@@ -83,12 +83,22 @@ public class BookList {
                 endQueryByType = "lower(name)";
         }
 
-        String query = "select * from book inner join author on book.author_id=author.id inner join(select publisher.id, publisher.name as\n" +
-                " publisher_name from publisher) publisher on \n" +
-                "publisher_id = publisher.id where" + endQueryByType + " like '%' " + searchStr.toLowerCase() +
-                "'%' order by book.name ;";
+        String query = "select * from book inner join author on book.author_id=author.id inner join(select publisher.id, publisher.name as" +
+                " publisher_name from publisher) publisher on " +
+                "publisher_id = publisher.id where " + endQueryByType + " like '%" + searchStr.toLowerCase() +
+                "%' order by book.name ;";
+        System.out.println(endQueryByType);
+        System.out.println(searchStr);
+        System.out.println(query);
 
 
         return getBooks(query);
+    }
+
+    public static void main(String[] args) {
+        List<Book> jav = new BookList().getBooksBySearch("j", SearchType.TITLE);
+        for (Book book : jav) {
+            System.out.println(book);
+        }
     }
 }
