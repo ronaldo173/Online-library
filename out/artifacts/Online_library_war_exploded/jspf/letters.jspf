@@ -1,4 +1,3 @@
-
 <%@ page pageEncoding="UTF-8" %>
 
 <div class="letters">
@@ -18,17 +17,20 @@
 
         Character[] letters = letterList.getRussianLetters();
         for (int i = 0; i < letters.length; i++) {
-            if (i==32){ %><BR>  <%}
+            if (i == 32) { %><BR> <%
+    }
 
-            if (searchLetter != null && searchLetter.toString().toUpperCase().charAt(0) == letters[i]) {
+    if (searchLetter != null && searchLetter.toString().toUpperCase().charAt(0) == letters[i]) {
 
-    %>
+%>
 
-    <a  class="letters" href="books.jsp?letter=<%=letters[i]%>"><%=letters[i]%></a>
+    <a class="letters" href="books.jsp?letter=<%=letters[i]%>"><%=letters[i]%>
+    </a>
     <%
     } else {
     %>
-    <a style="color: darkslategray"  href="books.jsp?letter=<%=letters[i]%>"><%=letters[i]%></a>
+    <a style="color: darkslategray" href="books.jsp?letter=<%=letters[i]%>"><%=letters[i]%>
+    </a>
     <%
             }
         }%>

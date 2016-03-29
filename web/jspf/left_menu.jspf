@@ -1,4 +1,4 @@
-<%@page import="beans.Genre"%>
+<%@page import="beans.Genre" %>
 <%@ page pageEncoding="UTF-8" %>
 <div class="sidebar1">
     <h4>Жанры:</h4>
@@ -26,12 +26,14 @@
             for (Genre genre : genreList.getGenreList()) {
                 if (selectedGenreId != 0 && selectedGenreId == genre.getId()) {
         %>
-        <li><a style="color:red;" href="books.jsp?genre_id=<%=genre.getId()%>"><%=genre.getName()%></a></li>
-        <%        } else {
+        <li><a style="color:red;" href="books.jsp?genre_id=<%=genre.getId()%>"><%=genre.getName()%>
+        </a></li>
+        <% } else {
 
         %>
-        <li><a href="books.jsp?genre_id=<%=genre.getId()%>"><%=genre.getName()%></a></li>
-        <%                }
+        <li><a href="books.jsp?genre_id=<%=genre.getId()%>"><%=genre.getName()%>
+        </a></li>
+        <% }
         }
 
         %>

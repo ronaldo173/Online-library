@@ -22,7 +22,7 @@
             <td><input type="text" name="one"></td>
         </tr>
         <tr>
-            <td><b>Second number:</b> </td>
+            <td><b>Second number:</b></td>
             <td><input type="text" name="two"></td>
         </tr>
         <tr>

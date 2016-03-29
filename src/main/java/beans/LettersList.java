@@ -9,6 +9,11 @@ import java.util.List;
  */
 public class LettersList {
 
+    public static void main(String[] args) {
+        Character[] russianLetters = new LettersList().getRussianLetters();
+        System.out.println(Arrays.toString(russianLetters));
+    }
+
     public Character[] getRussianLetters() {
         List<Character> list = new ArrayList<>();
 
@@ -23,10 +28,5 @@ public class LettersList {
         }
 
         return list.toArray(new Character[list.size()]);
-    }
-
-    public static void main(String[] args) {
-        Character[] russianLetters = new LettersList().getRussianLetters();
-        System.out.println(Arrays.toString(russianLetters));
     }
 }

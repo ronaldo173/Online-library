@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="EmbedPDF">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/EmbedPDF.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

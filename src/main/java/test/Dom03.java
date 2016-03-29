@@ -1,25 +1,27 @@
 package test;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
 
 import org.w3c.dom.*;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.*;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.util.Vector;
 
-import java.util.*;
-import java.io.*;
+public class Dom03 {
 
-public class Dom03{
-
-    PrintWriter out;//output stream
     //Save processing instruction nodes here
     static Vector procInstr = new Vector();
+    PrintWriter out;//output stream
 
-    public static void main(String argv[]){
-        if (argv.length != 3){
+    public static void main(String argv[]) {
+        if (argv.length != 3) {
             System.err.println(
                     "usage: java Dom03 "
                             + "xmlFileIn "
@@ -28,7 +30,7 @@ public class Dom03{
             System.exit(0);
         }//end if
 
-        try{
+        try {
             //Get a factory object for DocumentBuilder
             // objects
             ///
@@ -103,9 +105,9 @@ public class Dom03{
             // parameter to this method.
             ///
             thisObj.doXslTransform(
-                    document,argv[1],procInstr);
+                    document, argv[1], procInstr);
 
-        }catch(Exception e){
+        } catch (Exception e) {
             //Note that no effort was made to provide
             // meaningful results in the event of an
             // exception or error.
@@ -119,7 +121,7 @@ public class Dom03{
     // required in the output at the document
     // level, such as the XML declaration for an
     // XML document.
-    void processDocumentNode(Node node){
+    void processDocumentNode(Node node) {
         //Create the beginning of the XHTML document
         out.println("<?xml version=\"1.0\" "
                 + "encoding=\"UTF-8\"?>");
@@ -184,10 +186,10 @@ public class Dom03{
     // no constant in the Node class to identify
     // namespace nodes
     ///
-    void processNode(Node node){
+    void processNode(Node node) {
 
-        try{
-            if (node == null){
+        try {
+            if (node == null) {
                 System.err.println(
                         "Nothing to do, node is null");
                 return;
@@ -207,11 +209,11 @@ public class Dom03{
             // the default rule for that element type
             // will not be processed.
             ///
-            switch (type){
-                case Node.TEXT_NODE:{
-                    if(true){
+            switch (type) {
+                case Node.TEXT_NODE: {
+                    if (true) {
                         out.println(node.getNodeValue());
-                    }else{//invoke default behavior
+                    } else {//invoke default behavior
                         //This won't be reached in this
                         // example, but I will leave it
                         // here as a reminder of the
@@ -221,35 +223,35 @@ public class Dom03{
                     break;
                 }//end case Node.TEXT_NODE
 
-                case Node.ATTRIBUTE_NODE:{
-                    if(false){
+                case Node.ATTRIBUTE_NODE: {
+                    if (false) {
                         //Change conditional and write
                         // overriding handler here
                         ///
-                    }else{//invoke default behavior
+                    } else {//invoke default behavior
                         out.print(defTextOrAttrTemp(node));
                     }//end else
                     break;
                 }//end case Node.ATTRIBUTE_NODE
 
-                case Node.ELEMENT_NODE:{
-                    if(node.getNodeName() == "B"){
+                case Node.ELEMENT_NODE: {
+                    if (node.getNodeName() == "B") {
                         //Process all XML child nodes
                         // recursively
-                        applyTemplates(node,null);
+                        applyTemplates(node, null);
                     }//end if
 
-                    else if(node.getNodeName() == "C"){
+                    else if (node.getNodeName() == "C") {
                         //Begin XHTML paragraph element
                         out.println("<p>");
                         //Process all XML child nodes
                         // recursively
-                        applyTemplates(node,null);
+                        applyTemplates(node, null);
                         //End XHTML paragraph element
                         out.println("</p>");
                     }//end if
 
-                    else if(node.getNodeName() == "D"){
+                    else if (node.getNodeName() == "D") {
                         //First process the child nodes
                         // named E.
                         out.println("List of items in E");
@@ -258,7 +260,7 @@ public class Dom03{
                         //Iteratively put text from E
                         // elements and their children into
                         // the list.
-                        forEach(node,"E");
+                        forEach(node, "E");
                         //End XHTML unordered list
                         out.println("</ul>");
 
@@ -270,40 +272,40 @@ public class Dom03{
                         //Iteratively put text from F
                         // elements and their children in the
                         // list.
-                        forEach(node,"F");
+                        forEach(node, "F");
                         //End XHTML ordered list
                         out.println("</ol>");
                     }//end if
 
-                    else if(node.getNodeName() == "G"){
+                    else if (node.getNodeName() == "G") {
                         //Display children as XHTML bold
                         out.println("<b>");
-                        applyTemplates(node,null);
+                        applyTemplates(node, null);
                         out.println("</b>");
                     }//end if
 
                     //Create four levels of XHTML headers
-                    else if(node.getNodeName() == "Q"){
+                    else if (node.getNodeName() == "Q") {
                         out.println("<h1>");
-                        applyTemplates(node,null);
+                        applyTemplates(node, null);
                         out.println("</h1>");
                     }//end if
 
-                    else if(node.getNodeName() == "R"){
+                    else if (node.getNodeName() == "R") {
                         out.println("<h2>");
-                        applyTemplates(node,null);
+                        applyTemplates(node, null);
                         out.println("</h2>");
                     }//end if
 
-                    else if(node.getNodeName() == "S"){
+                    else if (node.getNodeName() == "S") {
                         out.println("<h3>");
-                        applyTemplates(node,null);
+                        applyTemplates(node, null);
                         out.println("</h3>");
                     }//end if
 
-                    else if(node.getNodeName() == "T"){
+                    else if (node.getNodeName() == "T") {
                         out.println("<h4>");
-                        applyTemplates(node,null);
+                        applyTemplates(node, null);
                         out.println("</h4>");
                     }//end if
 
@@ -316,57 +318,57 @@ public class Dom03{
                     // to confine all of the custom code
                     // to the methods named processNode and
                     // processDocumentNode.
-                    else if(node.getNodeName() == "E"){
+                    else if (node.getNodeName() == "E") {
                         //Create an XHTML list item
                         // containing information from child
                         // nodes.
                         out.println("<li>");
-                        applyTemplates(node,null);
+                        applyTemplates(node, null);
                         out.println("</li>");
                     }//end if
 
-                    else if(node.getNodeName() == "F"){
+                    else if (node.getNodeName() == "F") {
                         //Create an XHTML list item
                         // containing information from child
                         // nodes.
                         out.println("<li>");
-                        applyTemplates(node,null);
+                        applyTemplates(node, null);
                         out.println("</li>");
                     }//end if
 
-                    else{//invoke default behavior
+                    else {//invoke default behavior
                         defElOrRtNodeTemp(node);
                     }//end else
                     break;
                 }//end case ELEMENT_NODE
 
-                case Node.DOCUMENT_NODE:{
-                    if(false){
+                case Node.DOCUMENT_NODE: {
+                    if (false) {
                         //Change conditional and write
                         // overriding handler here
                         ///
-                    }else{//invoke default behavior
+                    } else {//invoke default behavior
                         defElOrRtNodeTemp(node);
                     }//end else
                     break;
                 }//end case DOCUMENT_NODE
 
-                case Node.COMMENT_NODE:{
-                    if(false){
+                case Node.COMMENT_NODE: {
+                    if (false) {
                         //Change conditional and write
                         // overriding handler here
                         ///
-                    }else{//invoke default behavior
+                    } else {//invoke default behavior
                         defComOrProcInstrTemp(node);
                     }//end else
                     break;
                 }//end case COMMENT_NODE
 
-                case Node.PROCESSING_INSTRUCTION_NODE:{
-                    if(false){
+                case Node.PROCESSING_INSTRUCTION_NODE: {
+                    if (false) {
                         //Change conditional and write
                         // overriding handler here
-                    }else{//invoke default behavior
+                    } else {//invoke default behavior
                         //First save proc instr for later
                         // use.
                         procInstr.add(node);
@@ -376,13 +378,13 @@ public class Dom03{
                     break;
                 }//end case PROCESSING_INSTRUCTION_NODE
 
-                default:{
+                default: {
                     //Ignore all other node types.
                 }//end default
 
             }//end switch
 
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace(System.err);
         }//end catch
     }//end processNode(Node)
@@ -395,15 +397,15 @@ public class Dom03{
     //  </xsl:template>
     ///
     String defTextOrAttrTemp(Node node)
-            throws Exception{
+            throws Exception {
         int nodeType = node.getNodeType();
-        if((nodeType == Node.ATTRIBUTE_NODE)
-                || (nodeType == Node.TEXT_NODE)){
+        if ((nodeType == Node.ATTRIBUTE_NODE)
+                || (nodeType == Node.TEXT_NODE)) {
             //Get and return the value of the context
             // node.
             ///
-            return valueOf(node,".");
-        }else{
+            return valueOf(node, ".");
+        } else {
             throw new Exception(
                     "Bad call to defaultTextOrAttr method");
         }//end else
@@ -417,15 +419,15 @@ public class Dom03{
     //  </xsl:template>
     ///
     void defElOrRtNodeTemp(Node node)
-            throws Exception{
+            throws Exception {
         int nodeType = node.getNodeType();
-        if((nodeType == Node.ELEMENT_NODE) ||
-                (nodeType == Node.DOCUMENT_NODE)){
+        if ((nodeType == Node.ELEMENT_NODE) ||
+                (nodeType == Node.DOCUMENT_NODE)) {
             //Note that the following is a recursive
             // method call.
             ///
-            applyTemplates(node,null);
-        }else{
+            applyTemplates(node, null);
+        } else {
             throw new Exception(
                     "Bad call to defElOrRtNodeTemp");
         }//end else
@@ -438,18 +440,18 @@ public class Dom03{
     //   match="processing-instruction()|comment()"
     ///
     String defComOrProcInstrTemp(Node node)
-            throws Exception{
+            throws Exception {
         int nodeType = node.getNodeType();
-        if((nodeType == Node.COMMENT_NODE) ||
+        if ((nodeType == Node.COMMENT_NODE) ||
                 (nodeType ==
-                        Node.PROCESSING_INSTRUCTION_NODE)){
+                        Node.PROCESSING_INSTRUCTION_NODE)) {
             //According to page Nutshell pg 148, the
             // default rule for comments and processing
             // instructions doesn't output anything
             // into the result tree.
             ///
             return "";//empty string
-        }else{
+        } else {
             throw new Exception("Bad call to " +
                     "defalutCommentOrProcInstrTemplate");
         }//end else
@@ -462,7 +464,7 @@ public class Dom03{
     // template.
     ///
     void defaultNamespaceTemplate(Node node)
-            throws Exception{
+            throws Exception {
         throw new Exception("See Nutshell pg 148" +
                 "regarding default behavior for " +
                 "namespace template.");
@@ -478,15 +480,15 @@ public class Dom03{
     // in this version.
     //If the select parameter is null, all child
     // nodes are processed.
-    void applyTemplates(Node node,String select){
+    void applyTemplates(Node node, String select) {
         NodeList children = node.getChildNodes();
-        if (children != null){
+        if (children != null) {
             int len = children.getLength();
             //Iterate on NodeList of child nodes.
-            for (int i = 0; i < len; i++){
-                if((select == null) ||
+            for (int i = 0; i < len; i++) {
+                if ((select == null) ||
                         (select.equals(children.item(i).
-                                getNodeName()))){
+                                getNodeName()))) {
                     //Note that the following is a
                     // recursive method call.
                     ///
@@ -535,10 +537,10 @@ public class Dom03{
     //   namespace nodes
     ///
 
-    public String valueOf(Node node,String select){
+    public String valueOf(Node node, String select) {
 
-        if(select != null
-                && select.charAt(0) == '@'){
+        if (select != null
+                && select.charAt(0) == '@') {
             //This is a request for the value of an
             // attribute. Returns empty string if the
             // attribute doesn't exist on the element.
@@ -547,19 +549,19 @@ public class Dom03{
                     node.getAttributes();
             Node attrNode = attrList.getNamedItem(
                     attrName);
-            if(attrNode != null){
+            if (attrNode != null) {
                 return attrNode.getNodeValue();
-            }else{
+            } else {
                 return "";//empty string
             }//end else
         }//end if on @
 
-        else if(select != null
-                && select.equals(".")){
+        else if (select != null
+                && select.equals(".")) {
             //This is a request to process the context
             // node
             int nodeType = node.getNodeType();
-            if(nodeType == Node.ELEMENT_NODE){
+            if (nodeType == Node.ELEMENT_NODE) {
                 //Process the context node as an element
                 // node.  Return the concatenated text
                 // values of all descendants of the
@@ -569,22 +571,22 @@ public class Dom03{
                 int listLen = childNodes.getLength();
                 String nodeTextValue = "";//result
 
-                for(int j = 0; j < listLen; j++){
+                for (int j = 0; j < listLen; j++) {
                     nodeTextValue +=
-                            valueOf(childNodes.item(j),".");
+                            valueOf(childNodes.item(j), ".");
                 }//end for loop
                 return nodeTextValue;
-            }else if(nodeType == Node.TEXT_NODE){
+            } else if (nodeType == Node.TEXT_NODE) {
                 //Process the context node as a text
                 // node.  Simply get and return its
                 // value.
                 return node.getNodeValue();
-            }else{
+            } else {
                 //ignore all other context node types
             }//end else
         }//end if for context node
 
-        else if(select != null){
+        else if (select != null) {
             //Process a child node whose name is
             // specified by the value of the incoming
             // parameter named select.  Get and return
@@ -596,13 +598,13 @@ public class Dom03{
             // finds.
             NodeList children = node.getChildNodes();
             int len = children.getLength();
-            for (int i = 0; i < len; i++){
+            for (int i = 0; i < len; i++) {
                 //Trap the specified child node
-                if(children.item(i).getNodeName().
-                        equals(select)){
+                if (children.item(i).getNodeName().
+                        equals(select)) {
                     //Make a recursive call and let
                     // existing code do the work.
-                    return valueOf(children.item(i),".");
+                    return valueOf(children.item(i), ".");
                     //The above return statement causes any
                     // additional child nodes having the
                     // same name to be ignored.
@@ -618,16 +620,16 @@ public class Dom03{
 
     //This method simulates an XSLT for-each
     // template rule
-    private void forEach(Node node,String select){
+    private void forEach(Node node, String select) {
         NodeList children = node.getChildNodes();
-        if (children != null){
+        if (children != null) {
             int len = children.getLength();
             //Iterate on NodeList of child nodes,
             // processing nodes that match the select.
 
-            for (int i = 0; i < len; i++){
-                if(children.item(i).getNodeName().
-                        equals(select)){
+            for (int i = 0; i < len; i++) {
+                if (children.item(i).getNodeName().
+                        equals(select)) {
                     //Make a recursive call from within
                     // this iterative template rule.
                     processNode(children.item(i));
@@ -651,8 +653,8 @@ public class Dom03{
     void doXslTransform(Document document,
                         String outFile,
                         Vector procInstr)
-            throws Exception{
-        try{
+            throws Exception {
+        try {
             //Get stylesheet ID from proc instr.
             ProcessingInstruction pi = null;
             boolean piFlag = false;
@@ -660,19 +662,19 @@ public class Dom03{
             //Search for a stylesheet in the Vector
             // containing processing instruction nodes.
             ///
-            for(int i = 0; i < size; i++){
-                pi = (ProcessingInstruction)procInstr.
+            for (int i = 0; i < size; i++) {
+                pi = (ProcessingInstruction) procInstr.
                         get(i);
-                if(pi.getTarget().startsWith(
+                if (pi.getTarget().startsWith(
                         "xml-stylesheet") && pi.getData().
-                        startsWith("type=\"text/xsl\"")){
+                        startsWith("type=\"text/xsl\"")) {
                     //Looks like a good stylesheet.
                     ///
                     piFlag = true;
                     break;
                 }//end if
             }//end for loop
-            if(piFlag == false){//still false?
+            if (piFlag == false) {//still false?
                 throw new Exception(
                         "No valid stylesheet");
             }//end if
@@ -680,11 +682,11 @@ public class Dom03{
             ///
             String xslFile = pi.getData().
                     substring(pi.getData().indexOf(
-                            "href=")+6);
+                            "href=") + 6);
             //Eliminate the quotation mark at the end
             ///
             xslFile = xslFile.substring(
-                    0,xslFile.length()-1);
+                    0, xslFile.length() - 1);
 
             //Get a TransformerFactory object
             ///
@@ -717,8 +719,8 @@ public class Dom03{
 
             //Do the transform
             ///
-            transformer.transform(source,xformResult);
-        }catch(Exception e){
+            transformer.transform(source, xformResult);
+        } catch (Exception e) {
             e.printStackTrace(System.err);
         }//end catch
 

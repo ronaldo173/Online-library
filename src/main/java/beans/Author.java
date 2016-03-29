@@ -2,10 +2,10 @@ package beans;
 
 public class Author implements Comparable<Author> {
 
+    private String name;
+
     public Author() {
     }
-    
-    private String name;
 
     public Author(String name) {
         this.name = name;

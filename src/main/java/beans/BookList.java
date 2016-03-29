@@ -16,6 +16,14 @@ import java.util.logging.Logger;
 public class BookList {
     private List<Book> bookList = new ArrayList<>();
 
+    public static void main(String[] args) {
+
+        List<Book> j = new BookList().getBookList();
+        for (Book book : j) {
+            System.out.println(book);
+        }
+    }
+
     private List<Book> getBooks(String query) {
 
 
@@ -93,13 +101,5 @@ public class BookList {
 
 
         return getBooks(query);
-    }
-
-    public static void main(String[] args) {
-
-        List<Book> j = new BookList().getBooksByLetter("J");
-        for (Book book : j) {
-            System.out.println(book);
-        }
     }
 }

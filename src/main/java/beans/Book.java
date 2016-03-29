@@ -1,8 +1,11 @@
 package beans;
 
+import db.DbConnection;
+
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.Date;
 
 /**
  * Created by Developer on 24.03.2016.
@@ -111,5 +114,17 @@ public class Book implements Serializable {
                 ", publishYear=" + publishYear +
                 ", publisher='" + publisher + '\'' +
                 '}';
+    }
+
+    public void fillPdfContent() {
+        try (ResultSet resultSet = DbConnection.getResultSetByQuery("select content from book where id = " + this.getId());
+        ) {
+
+            while (resultSet.next()) {
+                this.setContent(resultSet.getBytes("content"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

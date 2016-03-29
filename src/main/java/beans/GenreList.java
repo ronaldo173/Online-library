@@ -15,6 +15,16 @@ import java.util.logging.Logger;
 public class GenreList {
     private List<Genre> genreList = new ArrayList<>();
 
+    public static void main(String[] args) {
+
+        List<Book> bookList = new BookList().getBookList();
+        System.out.println(bookList);
+        Book book = bookList.get(0);
+        System.out.println(book);
+
+
+    }
+
     private List<Genre> getGenres() {
 
         try (ResultSet resultSet = DbConnection.getResultSetByQuery("select * from genre order by name")) {
@@ -32,16 +42,5 @@ public class GenreList {
 
     public List<Genre> getGenreList() {
         return !genreList.isEmpty() ? genreList : getGenres();
-    }
-
-    public static void main(String[] args) {
-
-        List<Book> bookList = new BookList().getBookList();
-        System.out.println(bookList);
-        Book book = bookList.get(0);
-        System.out.println(book);
-
-
-
     }
 }
