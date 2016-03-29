@@ -1,24 +1,32 @@
 package beans;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Developer on 28.03.2016.
  */
 public class LettersList {
 
-    public char[] getRussianLetters() {
-        char[] letters = new char[32];
+    public Character[] getRussianLetters() {
+        List<Character> list = new ArrayList<>();
+
         char a = 'а';
         for (int i = 0; i < 32; i++) {
-            letters[i] = a++;
+            list.add(a++);
         }
 
-        return letters;
+        char aEngl = 'a';
+        for (int i = 0; i < 26; i++) {
+            list.add(aEngl++);
+        }
+
+        return list.toArray(new Character[list.size()]);
     }
 
     public static void main(String[] args) {
-        char[] russianLetters = new LettersList().getRussianLetters();
+        Character[] russianLetters = new LettersList().getRussianLetters();
         System.out.println(Arrays.toString(russianLetters));
     }
 }

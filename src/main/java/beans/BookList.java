@@ -59,14 +59,17 @@ public class BookList {
 //                + "where genre_id=" + id + " order by b.name "
 //                + "limit 0,5");
 
-        return getBooks("select * from book inner join author on book.author_id=author.id inner join(select publisher.id, publisher.name as publisher_name from publisher) publisher on \n" +
+        return getBooks("select * from book inner join author on book.author_id=" +
+                "author.id inner join(select publisher.id, publisher.name as publisher_name from publisher) publisher on \n" +
                 "publisher_id = publisher.id where genre_id=" + id + " order by book.name ");
 
     }
 
     //TODO
     public List<Book> getBooksByLetter(String letter) {
-        String query = null;
+        String query = "SELECT * FROM book inner join author on book.author_id=author.id\n" +
+                "inner join(select publisher.id, publisher.name as publisher_name from publisher)\n" +
+                "publisher on publisher_id = publisher.id where substring(name, 1,1) = '" + letter + "'";
 
         return getBooks(query);
     }
@@ -87,17 +90,15 @@ public class BookList {
                 " publisher_name from publisher) publisher on " +
                 "publisher_id = publisher.id where " + endQueryByType + " like '%" + searchStr.toLowerCase() +
                 "%' order by book.name ;";
-        System.out.println(endQueryByType);
-        System.out.println(searchStr);
-        System.out.println(query);
 
 
         return getBooks(query);
     }
 
     public static void main(String[] args) {
-        List<Book> jav = new BookList().getBooksBySearch("j", SearchType.TITLE);
-        for (Book book : jav) {
+
+        List<Book> j = new BookList().getBooksByLetter("J");
+        for (Book book : j) {
             System.out.println(book);
         }
     }
