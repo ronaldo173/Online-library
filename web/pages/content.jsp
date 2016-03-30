@@ -1,5 +1,7 @@
-<%@page import="java.util.Enumeration"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="beans.Book" %>
+<%@ page import="beans.BookList" %>
+<%@ page import="java.util.List" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,44 +9,30 @@
     <title>JSP Page</title>
 </head>
 <body>
+<h1>Read page</h1>
+<%--<param name="pdf" value="<%= request.getContextPath()%>/PdfContent?name=<%=request.getParameter("name")%>--%>
+<%--&session_id=<%=request.getSession().getId()%>"/>--%>
+<%
+    request.setCharacterEncoding("UTF-8");
+%>
+Book: <b><%=request.getParameter("name")%>
+</b>
+<br>
 
-<div class="pdf_viewer">
-    <%--<applet CODE="EmbedPDF.class" archive="<%=ge().getContextPath()%>/jars/EmbedPDF.jar" WIDTH="850" HEIGHT="900">--%>
-        <!-- The URL of the PDF document that we want to show: -->
+<%
+    String nameBook = request.getParameter("name");
+    byte pdfInByteArr[] = null;
 
-        <param name="pdf" value="<%= request.getContextPath()%>/PdfContent?index=<%=request.getParameter("index")%>&session_id=<%=request.getSession().getId()%>"/>
+    List<Book> bookList = new BookList().getBookList();
+    for (Book book : bookList) {
+        if (book.getName().equalsIgnoreCase(nameBook)) {
+            pdfInByteArr = book.getContent();
+        }
+    }
 
-        <!-- Whether users may open the PDF document in a new window: -->
-        <param name="enableOpenWindow" value="true"/>
 
-        <!-- Whether the PDF is rendered with subpixel-antialiasing (may be slow and needs more memory) -->
-        <param name="enableSubpixAA" value="true"/>
+%>
 
 
-        <!-- The following parameters are recommended to improve usability and
-             performance of the applet when run with Sun's Java Plugin: -->
-
-        <!-- whether language-specific texts shall be looked up on the server. -->
-        <param name="codebase_lookup" value="false"/>
-
-        <!-- whether the code of the applet shall be shared with other applets. -->
-        <param name="classloader_cache" value="false"/>
-
-        <!-- Whether the server provides a highly compressed .pack.gz-version of the applet.
-             The amount of memory that the applet may use (128m is 128 mega bytes).
-        -->
-        <param name="java_arguments" value="-Djnlp.packEnabled=true -Xmx128m"/>
-
-        <!-- the splash screen to show, while the applet loads. -->
-        <%--<param name="image" value="<%=getServletContext().getContextPath()%>/images/splash.gif"/>--%>
-
-        <!-- the border of the splash screen. -->
-        <param name="boxborder" value="false"/>
-
-        <!-- whether the splash screen shall be centered. -->
-        <param name="centerimage" value="true"/>
-
-    </applet>
-</div>
 </body>
 </html>

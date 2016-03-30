@@ -61,7 +61,8 @@
             <br><strong>Год издания:</strong> <%=book.getPublishYear()%>
             <br><strong>Автор:</strong> <%=book.getAuthor()%>
 
-            <p style="margin:10px;"> <a href="content.jsp?index=<%=list.indexOf(book)%>">Читать</a></p>
+
+            <p style="margin:10px;"> <a href="content.jsp?name=<%=book.getName()%>">Читать</a></p>
         </div>
     </div>
 
